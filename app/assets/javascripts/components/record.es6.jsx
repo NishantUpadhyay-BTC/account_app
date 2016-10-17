@@ -4,7 +4,7 @@ class Record extends React.Component {
       <tr key={this.props.data}>
         <td>{this.props.data.date}</td>
         <td>{this.props.data.title}</td>
-        <td>{this.props.data.amount}</td>
+        <td>{amountFormat(this.props.data.amount)}</td>
       </tr>
     );
   }
