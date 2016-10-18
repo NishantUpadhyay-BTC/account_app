@@ -8,10 +8,8 @@ class Records extends React.Component {
     this.credits = this.credits.bind(this);
     this.debits = this.debits.bind(this);
     this.balance = this.balance.bind(this);
-  }
-
-  recordRow(record, index){
-    return <Record key= {index} data={record} />;
+    this.deleteRecord = this.deleteRecord.bind(this);
+    this.recordRow = this.recordRow.bind(this);
   }
 
   addRecord(record){
@@ -44,6 +42,18 @@ class Records extends React.Component {
     return this.debits() + this.credits();
   }
 
+  deleteRecord(record){
+    records = this.state.records
+    t = records.filter((data) => {
+      return (data.id) != (record.id);
+    });
+    this.setState({records: t})
+  }
+
+  recordRow(record, index){
+    return <Record key= {index} data={record} handleDeleteRecord={this.deleteRecord} />;
+  }
+
   render () {
     return (
       <div>
@@ -58,6 +68,7 @@ class Records extends React.Component {
               <th>Date</th>
               <th>Title</th>
               <th>Amount</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>

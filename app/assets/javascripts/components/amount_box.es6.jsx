@@ -1,7 +1,6 @@
 class AmountBox extends React.Component {
   render () {
     classes = "panel panel-" + this.props.type
-    console.log(this.props.amount)
     return (
       <div className="col-md-4">
         <div className={classes}>

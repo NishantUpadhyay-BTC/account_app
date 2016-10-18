@@ -19,7 +19,6 @@ class RecordForm extends React.Component {
      data : { record: this.state },
      dataType: "json",
      success: function (data) {
-       console.log(data)
        this.props.handleNewRecord(data);
        this.setState({title: '', amount: '', date: ''})
      }.bind(this),
