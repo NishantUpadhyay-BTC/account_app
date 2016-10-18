@@ -14,7 +14,26 @@ class Record extends React.Component {
   }
 
   handleEdit(e){
-    e.preventDefault();
+    e.preventDefault($(this.refs.title).value);
+    data = {
+      title: $(this.refs.title).val(),
+      date: $(this.refs.date).val(),
+      amount: $(this.refs.amount).val(),
+      id: this.props.data.id
+    }
+    $.ajax({
+     type: "PUT",
+     url: '/records/' + this.props.data.id,
+     data : { record: data },
+     dataType: "json",
+     success: function(data){
+       this.setState({edit: false});
+       this.props.handleEditRecord(this.props.data, data);
+     }.bind(this),
+     error: function(){
+        window.alert("something went wrong!");
+     }
+   });
   }
 
   handleDelete(e){
@@ -52,9 +71,9 @@ class Record extends React.Component {
       <tr key={this.props.data}>
         <td><input type="text" className="form-control" defaultValue={this.props.data.date} ref="date" /></td>
         <td><input type="text" className="form-control" defaultValue={this.props.data.title} ref="title"/></td>
-        <td><input type="text" className="form-control" defaultValue={this.props.data.amount} /></td>
+        <td><input type="text" className="form-control" defaultValue={this.props.data.amount} ref="amount"/></td>
         <td>
-          <a href="javascript:;" className="btn btn-default" onClick={this.handleEdit}>Edit</a>
+          <a href="javascript:;" className="btn btn-default" onClick={this.handleEdit}>Update</a>
           <a href="javascript:;" className="btn btn-danger" onClick={this.handleToggle}>Cancel</a>
         </td>
       </tr>

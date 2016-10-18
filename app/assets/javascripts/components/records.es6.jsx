@@ -10,6 +10,7 @@ class Records extends React.Component {
     this.balance = this.balance.bind(this);
     this.deleteRecord = this.deleteRecord.bind(this);
     this.recordRow = this.recordRow.bind(this);
+    this.updateRecord = this.updateRecord.bind(this);
   }
 
   addRecord(record){
@@ -51,8 +52,14 @@ class Records extends React.Component {
     this.setState({records: t})
   }
 
+  updateRecord(record){
+    index = this.state.records.indexOf(record)
+    records = React.addons.update(this.state.records, { $splice: [[index, 1, data]] })
+    this.setState({records: records})
+  }
+
   recordRow(record, index){
-    return <Record key= {index} data={record} handleDeleteRecord={this.deleteRecord} />;
+    return <Record key= {index} data={record} handleDeleteRecord={this.deleteRecord}  handleEditRecord={this.updateRecord}/>;
   }
 
   render () {
