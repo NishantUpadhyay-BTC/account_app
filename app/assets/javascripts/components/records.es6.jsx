@@ -13,8 +13,7 @@ class Records extends React.Component {
   }
 
   addRecord(record){
-    let records = this.state.records.slice()
-    records.push(record);
+    records = React.addons.update(this.state.records, { $push: [record] })
     this.setState({records: records})
   }
 
@@ -43,6 +42,8 @@ class Records extends React.Component {
   }
 
   deleteRecord(record){
+    //we can use $splice from react addon to make it more compact but as we are using
+    // filter of es6, no need to make it more compact.
     records = this.state.records
     t = records.filter((data) => {
       return (data.id) != (record.id);
